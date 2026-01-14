@@ -1,11 +1,12 @@
 :root {
     --primary-color: #ff3366;
-    --secondary-color: #ff6b8b;
-    --accent-color: #ffccdd;
+    --secondary-color: #ff8fa3; /* Softer pink */
+    --accent-color: #ffd1dc;    /* Warm pale pink */
     --background-dark: #1a0b14;
     --text-color: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.08); /* Slightly more visible for warmth */
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --modal-bg: rgba(20, 10, 15, 0.95);
 }
 
 body {
@@ -15,7 +16,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, #2a0e1c 0%, #050203 100%);
+    /* Warmer, richer gradient */
+    background: radial-gradient(circle at center, #3a0e1c 0%, #1a050a 60%, #000000 100%);
     font-family: 'Great Vibes', cursive;
     overflow: hidden;
     color: var(--text-color);
@@ -37,12 +39,13 @@ body {
     transition: transform 0.1s ease;
 }
 
+/* Central Beating Heart - Slower, more rhythmic */
 .heart-wrapper {
     position: relative;
     width: 120px;
     height: 120px;
     margin: 0 auto 50px;
-    animation: bounce 2s infinite;
+    animation: bounce 3s infinite ease-in-out; /* Slower bounce */
     transform-style: preserve-3d;
     transform: translateZ(50px);
 }
@@ -53,8 +56,9 @@ body {
     height: 120px;
     position: relative;
     transform: rotate(45deg);
-    box-shadow: 0 0 60px rgba(255, 51, 102, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.2);
-    animation: pump 1.2s infinite cubic-bezier(0.21, 0.61, 0.35, 1);
+    box-shadow: 0 0 70px rgba(255, 51, 102, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.2);
+    /* Slower, comforting heartbeat */
+    animation: pump 1.6s infinite cubic-bezier(0.21, 0.61, 0.35, 1);
 }
 
 .heart::before,
@@ -209,17 +213,90 @@ h1 {
     opacity: 0;
 }
 
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #2a0e1c, #1a050a);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.modal.visible .modal-content {
+    transform: translateY(0);
+}
+
+.letter-body {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--accent-color);
+    margin-top: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+.secondary-btn {
+    margin-left: 15px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations Updated for Comfort */
 @keyframes pump {
     0% { transform: rotate(45deg) scale(1); }
-    15% { transform: rotate(45deg) scale(1.2); }
+    15% { transform: rotate(45deg) scale(1.15); } /* Softer beating */
     30% { transform: rotate(45deg) scale(1); }
-    45% { transform: rotate(45deg) scale(1.1); }
+    45% { transform: rotate(45deg) scale(1.08); }
     100% { transform: rotate(45deg) scale(1); }
 }
 
 @keyframes bounce {
     0%, 100% { transform: translateY(0) translateZ(50px); }
-    50% { transform: translateY(-15px) translateZ(50px); }
+    50% { transform: translateY(-10px) translateZ(50px); } /* Gentler float */
 }
 
 @keyframes textGlow {
@@ -242,4 +319,4 @@ h1 {
     10% { opacity: 1; }
     90% { opacity: 1; }
     100% { transform: translate(100px, -100px); opacity: 0; }
-                           }
+}
