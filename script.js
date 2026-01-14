@@ -98,6 +98,8 @@ setInterval(createHeart, 400);
 document.addEventListener('click', (e) => {
     // Don't trigger if clicking buttons
     if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+    // Don't trigger if clicking modal
+    if (e.target.closest('.modal-content')) return;
 
     for(let i = 0; i < 10; i++) {
         setTimeout(() => {
@@ -108,7 +110,7 @@ document.addEventListener('click', (e) => {
             heart.style.top = (e.clientY / window.innerHeight * 100) + 'vh'; // Start near click
             heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
             heart.style.animationDuration = '2s';
-            container.appendChild(heart);Source: 
+            container.appendChild(heart);
             setTimeout(() => heart.remove(), 2000);
         }, i * 50);
     }
@@ -133,6 +135,30 @@ document.addEventListener('mousemove', (e) => {
         card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
     }
 });
+
+// Letter Modal Logic
+const letterBtn = document.getElementById('letter-btn');
+const modal = document.getElementById('letter-modal');
+const closeBtn = document.querySelector('.close-btn');
+
+if (letterBtn && modal && closeBtn) {
+    letterBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('visible');
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.remove('visible');
+    });
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('visible');
+        }
+    });
+}
 
 // Reset tilt when mouse leaves
 document.addEventListener('mouseleave', () => {
