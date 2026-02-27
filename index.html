@@ -1,56 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Special One ❤️</title>
+    <title>For My Queen Ishu ❤️</title>
+    <meta name="description" content="A special digital gift for the most beautiful girl in the world.">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="heart-wrapper">
-            <div class="heart"></div>
-        </div>
-        <h1 class="glow" id="typewriter"></h1>
-        <p class="subtitle">You make my heart beat faster</p>
-        
-        <div class="interactive-area">
-            <button id="reason-btn" class="glass-btn">Why I Love You ✨</button>
-            <button id="letter-btn" class="glass-btn secondary-btn">Read My Letter 💌</button>
-            <p id="reason-display" class="reason-text"></p>
-        </div>
-    </div>
-    
-    <!-- Love Letter Modal -->
-    <div id="letter-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>My Dearest,</h2>
-            <p class="letter-body">
-                From the moment you entered my life, everything became brighter. 
-                You are my happiness, my peace, and my greatest adventure.
-                I love you more than words can say.
-                <br><br>
-                Always yours,<br>
-                [Your Name]
-            </p>
-        </div>
-    </div>
-
-    <!-- Music Player UI -->
-    <div class="music-player">
-        <button id="play-btn" class="icon-btn">🎵 Play Our Song</button>
-    </div>
-
-    <!-- Background Container for floating hearts & fireflies -->
     <div id="hearts-container"></div>
     <div id="fireflies-container"></div>
 
+    <div class="container" id="main-container">
+        <div class="heart-wrapper">
+            <div class="heart"></div>
+        </div>
+
+        <h1 id="typewriter"></h1>
+        <p class="subtitle">Because you're the beat in my heart.</p>
+
+        <div class="pulse-container">
+            <svg class="pulse-svg" viewBox="0 0 200 60">
+                <path class="pulse-path" d="M0,30 L40,30 L50,10 L60,50 L75,10 L85,30 L200,30" />
+            </svg>
+        </div>
+
+        <div class="interactive-area">
+            <button id="reason-btn" class="glass-btn">
+                <i class="fas fa-sparkles"></i> One More Reason
+            </button>
+            <button id="letter-btn" class="glass-btn secondary-btn">
+                <i class="fas fa-envelope-heart"></i> Open My Heart
+            </button>
+            <p id="reason-display" class="reason-text"></p>
+        </div>
+
+        <div class="love-meter-container">
+            <p>Our Love Meter: <span id="love-percent">99%</span></p>
+            <div class="meter-bar">
+                <div class="meter-fill" id="meter-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Love Letter Modal -->
+    <div id="letter-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ffd700; margin-bottom: 20px;">My
+                Dearest Ishu,</h2>
+            <div class="letter-body">
+                From the moment you entered my life, every heartbeat of mine started speaking your name. You aren't just
+                my partner; you are my home, my comfort, and my greatest source of strength.
+                <br><br>
+                Thank you for being the most beautiful soul I've ever known. No matter where life takes us, my heart
+                will always belong to you.
+                <br><br>
+                <span style="font-size: 1.2rem; opacity: 0.8;">Always yours forever,</span><br>
+                <span style="font-size: 2.2rem; color: #ff3366;">Pratik</span>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-</html>
 
-Add HTML for modal
+</html>

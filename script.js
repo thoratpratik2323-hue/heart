@@ -1,168 +1,171 @@
-const container = document.getElementById('hearts-container');
-const firefliesContainer = document.getElementById('fireflies-container');
-const card = document.querySelector('.container');
-const typewriterElement = document.getElementById('typewriter');
-const reasonBtn = document.getElementById('reason-btn');
-const reasonDisplay = document.getElementById('reason-display');
+document.addEventListener('DOMContentLoaded', () => {
+    const heartsContainer = document.getElementById('hearts-container');
+    const typewriterElement = document.getElementById('typewriter');
+    const reasonBtn = document.getElementById('reason-btn');
+    const reasonDisplay = document.getElementById('reason-display');
+    const container = document.querySelector('.container');
 
-// Typewriter Effect
-const textToType = "I Love You";
-let typeIndex = 0;
+    // Typewriter Effect
+    const textToType = "I Love You Ishu ❤️";
+    let typeIndex = 0;
 
-function typeWriter() {
-    if (typeIndex < textToType.length) {
-        typewriterElement.innerHTML += textToType.charAt(typeIndex);
-        typeIndex++;
-        setTimeout(typeWriter, 200);
+    function typeWriter() {
+        if (typeIndex < textToType.length) {
+            typewriterElement.textContent += textToType.charAt(typeIndex);
+            typeIndex++;
+            setTimeout(typeWriter, 150);
+        }
     }
-}
-// Start typing after a short delay
-setTimeout(typeWriter, 500);
+    setTimeout(typeWriter, 1000);
 
-// Reasons Logic
-const reasons = [
-    "Your beautiful smile ❤️",
-    "The way you care for me",
-    "Your amazing laugh",
-    "Being my best friend",
-    "Everything about you ✨",
-    "How you make me better",
-    "Your kind heart"
-];
+    // Personalized Reasons
+    const reasons = [
+        "Your beautiful smile that lights up my world. ✨",
+        "The way you care for me like no one else. ❤️",
+        "The sound of your laughter, it's my favorite song. 🎵",
+        "How you're not just my girl, but my best friend. 🤝",
+        "The magic in your eyes when you look at me. ✨",
+        "Your kind heart and pure soul. 💖",
+        "The way you make every moment special. 🌟",
+        "How you support my dreams and believe in me. 💪",
+        "Your cute little habits that make me smile. 🥰",
+        "Simply because you are YOU, and you're perfect. 💍"
+    ];
 
-if (reasonBtn) {
-    reasonBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent heart burst on button click
-        const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
-        reasonDisplay.style.opacity = 0;
-        
-        setTimeout(() => {
-            reasonDisplay.innerText = randomReason;
-            reasonDisplay.style.opacity = 1;
-        }, 300);
-    });
-}
+    if (reasonBtn) {
+        reasonBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
 
-// Fireflies System
-function createFirefly() {
-    const firefly = document.createElement('div');
-    firefly.classList.add('firefly');
-    
-    // Random position
-    const startX = Math.random() * 100;
-    const startY = Math.random() * 100;
-    const animDuration = Math.random() * 5000 + 5000;
-    
-    firefly.style.left = startX + 'vw';
-    firefly.style.top = startY + 'vh';
-    firefly.style.animationDuration = animDuration + 'ms';
-    
-    firefliesContainer.appendChild(firefly);
-    
-    setTimeout(() => {
-        firefly.remove();
-    }, animDuration);
-}
+            reasonDisplay.style.opacity = 0;
+            reasonDisplay.style.transform = 'translateY(10px)';
 
-setInterval(createFirefly, 500);
+            setTimeout(() => {
+                reasonDisplay.innerText = randomReason;
+                reasonDisplay.style.opacity = 1;
+                reasonDisplay.style.transform = 'translateY(0)';
+            }, 300);
 
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('floating-heart');
-    heart.innerHTML = '❤️';
-    
-    // Randomize position and animation properties
-    const startLeft = Math.random() * 100;
-    const duration = Math.random() * 3000 + 4000; // 4-7 seconds
-    // Varied sizes for depth effect
-    const size = Math.random() * 20 + 10; 
-    const blur = Math.random() * 2; // Subtle blur for depth
-    
-    heart.style.left = startLeft + 'vw';
-    heart.style.animationDuration = duration + 'ms';
-    heart.style.fontSize = size + 'px';
-    heart.style.filter = `blur(${blur}px)`;
-    
-    container.appendChild(heart);
-    
-    // Remove element after animation
-    setTimeout(() => {
-        heart.remove();
-    }, duration);
-}
+            // Create a burst of hearts
+            createHeartBurst(e.clientX, e.clientY);
+        });
+    }
 
-// Create hearts at regular intervals
-setInterval(createHeart, 400);
+    // Floating Hearts System
+    function createHeart() {
+        const heartText = ['❤️', '💖', '💝', '💕', '✨'][Math.floor(Math.random() * 5)];
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.textContent = heartText;
 
-// Add extra hearts on click with scatter effect
-document.addEventListener('click', (e) => {
-    // Don't trigger if clicking buttons
-    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
-    // Don't trigger if clicking modal
-    if (e.target.closest('.modal-content')) return;
+        const startLeft = Math.random() * 100;
+        const duration = Math.random() * 4000 + 4000;
+        const size = Math.random() * 25 + 15;
 
-    for(let i = 0; i < 10; i++) {
-        setTimeout(() => {
+        heart.style.left = startLeft + 'vw';
+        heart.style.bottom = '-100px';
+        heart.style.fontSize = size + 'px';
+        heart.style.animation = `floatUp ${duration}ms ease-in forwards`;
+        heart.style.opacity = Math.random() * 0.7 + 0.3;
+
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), duration);
+    }
+
+    setInterval(createHeart, 600);
+
+    // Heart Burst Effect
+    function createHeartBurst(x, y) {
+        for (let i = 0; i < 15; i++) {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
-            heart.innerHTML = '💖';
-            heart.style.left = (e.clientX / window.innerWidth * 100) + 'vw';
-            heart.style.top = (e.clientY / window.innerHeight * 100) + 'vh'; // Start near click
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            heart.style.animationDuration = '2s';
-            container.appendChild(heart);
-            setTimeout(() => heart.remove(), 2000);
-        }, i * 50);
+            heart.textContent = '💖';
+
+            const angle = (i / 15) * Math.PI * 2;
+            const velocity = Math.random() * 100 + 50;
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity;
+
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+
+            document.body.appendChild(heart);
+
+            heart.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'cubic-bezier(0, 0, 0.2, 1)'
+            }).onfinish = () => heart.remove();
+        }
     }
-});
 
-// Cursor Trail Effect
-document.addEventListener('mousemove', (e) => {
-    const trail = document.createElement('div');
-    trail.classList.add('cursor-trail');
-    trail.style.left = e.clientX + 'px';
-    trail.style.top = e.clientY + 'px';
-    document.body.appendChild(trail);
-    
-    setTimeout(() => {
-        trail.remove();
-    }, 1000);
+    // Cursor Trail & 3D Tilt
+    document.addEventListener('mousemove', (e) => {
+        // Trail
+        if (Math.random() > 0.85) {
+            const trail = document.createElement('div');
+            trail.classList.add('cursor-trail');
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            // Random scatter for trail
+            const mx = (Math.random() - 0.5) * 50;
+            const my = (Math.random() - 0.5) * 50;
+            trail.style.setProperty('--mx', mx + 'px');
+            trail.style.setProperty('--my', my + 'px');
 
-    // 3D Tilt Effect
-    if (card) {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    }
-});
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 800);
+        }
 
-// Letter Modal Logic
-const letterBtn = document.getElementById('letter-btn');
-const modal = document.getElementById('letter-modal');
-const closeBtn = document.querySelector('.close-btn');
-
-if (letterBtn && modal && closeBtn) {
-    letterBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.classList.add('visible');
-    });
-
-    closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.classList.remove('visible');
-    });
-
-    // Close on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('visible');
+        // 3D Tilt
+        if (container) {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         }
     });
-}
 
-// Reset tilt when mouse leaves
-document.addEventListener('mouseleave', () => {
-    if (card) {
-        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    // Reset Tilt
+    document.addEventListener('mouseleave', () => {
+        container.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+
+    // Modal Logic
+    const letterBtn = document.getElementById('letter-btn');
+    const modal = document.getElementById('letter-modal');
+    const closeBtn = document.querySelector('.close-btn');
+
+    if (letterBtn && modal && closeBtn) {
+        letterBtn.addEventListener('click', () => {
+            modal.classList.add('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('visible');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('visible');
+        });
     }
+
+    // Love Meter Random Increment
+    const lovePercent = document.getElementById('love-percent');
+    const meterFill = document.getElementById('meter-fill');
+
+    let currentPercent = 99;
+    setInterval(() => {
+        if (currentPercent < 100) {
+            currentPercent += 0.01;
+            lovePercent.textContent = currentPercent.toFixed(2) + '%';
+            meterFill.style.width = currentPercent + '%';
+        } else {
+            lovePercent.textContent = '∞%';
+            lovePercent.style.color = '#ffd700';
+            lovePercent.style.textShadow = '0 0 20px #ffd700';
+        }
+    }, 2000);
 });
